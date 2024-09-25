@@ -2,3 +2,4 @@ flask
 requests
 pillow
 numpy
+flask_cors

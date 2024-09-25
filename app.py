@@ -1,14 +1,16 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # Import CORS
 import requests
 import numpy as np
 from PIL import Image, ImageOps
 import json
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # URLs
-TENSORFLOW_SERVE_URL = "https://beefsensemodels-863994867283.southamerica-west1.run.app/v1/models/saved3_model:predict"
-SPRING_BOOT_API_URL = "https://beefsenseapiv2-863994867283.southamerica-west1.run.app/clasificaciones"
+TENSORFLOW_SERVE_URL = "https://beefsensemodels-863994867283.southamerica-west1.run.app:8501/v1/models/saved3_model:predict"
+SPRING_BOOT_API_URL = "https://beefsenseapiv2-863994867283.southamerica-west1.run.app:8080/clasificaciones"
 
 # Route for handling image uploads
 @app.route('/predict', methods=['POST'])
@@ -50,8 +52,8 @@ def predict():
         class_index = np.argmax(prediction)
         confidence_score = prediction[class_index]
 
-        # Map the class index to a category (You may need to adjust this mapping based on your labels)
-        category_mapping = {0: "primera", 1: "segunda", 2: "tercera", 4: "industrial"}  # Adjust according to your actual labels
+        # Map the class index to a category
+        category_mapping = {0: "primera", 1: "segunda", 2: "tercera", 4: "industrial"}
         category = category_mapping.get(class_index, "Unknown")
 
         # Forward the result to your Spring Boot API

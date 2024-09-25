@@ -51,7 +51,7 @@ def predict():
         confidence_score = prediction[class_index]
 
         # Map the class index to a category (You may need to adjust this mapping based on your labels)
-        category_mapping = {0: "Category1", 1: "Category2", 2: "Category3"}  # Adjust according to your actual labels
+        category_mapping = {0: "primera", 1: "segunda", 2: "tercera", 4: "industrial"}  # Adjust according to your actual labels
         category = category_mapping.get(class_index, "Unknown")
 
         # Forward the result to your Spring Boot API
